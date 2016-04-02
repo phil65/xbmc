@@ -285,7 +285,7 @@ void CGUIIncludes::ResolveIncludesForNode(TiXmlElement *node, std::map<INFO::Inf
     Params params;
     std::string tagName;
     // determine which form of include call we have
-    const char *name = include->Attribute("name");
+    const char *name = include->Attribute("content");
     if (name)
     {
       // 1. <include name="MyControl" />
