@@ -46,6 +46,7 @@ CGUITextBox::CGUITextBox(int parentID, int controlID, float posX, float posY, fl
   m_autoScrollDelay = 3000;
   m_autoScrollDelayTime = 0;
   m_autoScrollRepeatAnim = NULL;
+  m_showFullLines = true;
   m_minHeight = 0;
   m_renderHeight = height;
 }
@@ -69,6 +70,7 @@ CGUITextBox::CGUITextBox(const CGUITextBox &from)
   m_offset = 0;
   m_scrollOffset = 0;
   m_scrollSpeed = 0;
+  m_showFullLines = true;
   m_itemsPerPage = 10;
   m_itemHeight = 10;
   m_lastRenderTime = 0;
@@ -109,7 +111,8 @@ void CGUITextBox::UpdateInfo(const CGUIListItem *item)
   float maxHeight = m_height ? m_height : textHeight;
   m_renderHeight = m_minHeight ? CLAMP(textHeight, m_minHeight, maxHeight) : m_height;
   m_itemsPerPage = (unsigned int)(m_renderHeight / m_itemHeight);
-
+  if (m_showFullLines)
+    m_renderHeight = std::min(m_lines.size(), m_itemsPerPage) * m_itemHeight;
   UpdatePageControl();
 }
 
@@ -323,6 +326,11 @@ void CGUITextBox::UpdatePageControl()
 bool CGUITextBox::CanFocus() const
 {
   return false;
+}
+
+void CGUITextBox::SetShowFullLines(bool showFullLines)
+{
+  m_showFullLines = showFullLines;
 }
 
 void CGUITextBox::SetPageControl(int pageControl)

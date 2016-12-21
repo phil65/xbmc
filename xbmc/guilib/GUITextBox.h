@@ -58,6 +58,7 @@ public:
   void SetPageControl(int pageControl);
 
   virtual bool CanFocus() const;
+  void SetShowFullLines(bool showFullLines);
   void SetInfo(const CGUIInfoLabel &info);
   void SetAutoScrolling(const TiXmlNode *node);
   void SetAutoScrolling(int delay, int time, int repeatTime, const std::string &condition = "");
@@ -106,5 +107,6 @@ protected:
   int m_pageControl;
 
   CGUIInfoLabel m_info;
+  bool m_showFullLines;
 };
 #endif

@@ -678,6 +678,7 @@ CGUIControl* CGUIControlFactory::Create(int parentID, const CRect &rect, TiXmlEl
   std::string strLabel;
   int iUrlSet=0;
   std::string toggleSelect;
+  bool showFullLines = true;
 
   float spinWidth = 16;
   float spinHeight = 16;
@@ -870,6 +871,8 @@ CGUIControl* CGUIControlFactory::Create(int parentID, const CRect &rect, TiXmlEl
 
   XMLUtils::GetString(pControlNode, "usealttexture", toggleSelect);
   XMLUtils::GetString(pControlNode, "selected", toggleSelect);
+
+  XMLUtils::GetBoolean(pControlNode, "showfulllines", showFullLines);
 
   XMLUtils::GetBoolean(pControlNode, "haspath", bHasPath);
 
@@ -1384,6 +1387,7 @@ CGUIControl* CGUIControlFactory::Create(int parentID, const CRect &rect, TiXmlEl
         labelInfo, scrollTime);
 
       ((CGUITextBox *)control)->SetPageControl(pageControl);
+      ((CGUITextBox *)control)->SetShowFullLines(showFullLines);
       if (infoLabels.size())
         ((CGUITextBox *)control)->SetInfo(infoLabels[0]);
       ((CGUITextBox *)control)->SetAutoScrolling(pControlNode);
