@@ -46,7 +46,7 @@ namespace XBMCAddon
     bool Monitor::waitForAbort(double timeout)
     {
       XBMC_TRACE;
-      int timeoutMS = ceil(timeout * 1000);
+      int timeoutMS = ceil(timeout * 1000.0);
       XbmcThreads::EndTime endTime(timeoutMS > 0 ? timeoutMS : XbmcThreads::EndTime::InfiniteValue);
       while (!endTime.IsTimePast())
       {

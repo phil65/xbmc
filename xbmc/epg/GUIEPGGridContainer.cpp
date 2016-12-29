@@ -1100,13 +1100,13 @@ bool CGUIEPGGridContainer::SelectItemFromPoint(const CPoint &point, bool justGri
 
   if (m_orientation == VERTICAL)
   {
-    channel = point.y / m_channelHeight;
-    block = point.x / m_blockSize;
+    channel = static_cast<int>(point.y / m_channelHeight);
+    block = static_cast<int>(point.x / m_blockSize);
   }
   else
   {
-    channel = point.x / m_channelWidth;
-    block = point.y / m_blockSize;
+    channel = static_cast<int>(point.x / m_channelWidth);
+    block = static_cast<int>(point.y / m_blockSize);
   }
 
   if (channel > m_channelsPerPage)
@@ -1783,8 +1783,8 @@ void CGUIEPGGridContainer::UpdateLayout()
     m_channelPosY       = m_posY + m_rulerHeight + m_rulerDateHeight;
     m_rulerPosX         = m_posX + m_channelWidth;
     m_rulerPosY         = m_posY + m_rulerDateHeight;
-    m_channelsPerPage   = m_gridHeight / m_channelHeight;
-    m_programmesPerPage = (m_gridWidth / m_blockSize) + 1;
+    m_channelsPerPage   = static_cast<int>(m_gridHeight / m_channelHeight);
+    m_programmesPerPage = static_cast<int>(m_gridWidth / m_blockSize) + 1;
 
     m_programmeLayout->SetHeight(m_channelHeight);
     m_focusedProgrammeLayout->SetHeight(m_channelHeight);
@@ -1802,8 +1802,8 @@ void CGUIEPGGridContainer::UpdateLayout()
     m_channelPosY       = m_posY + m_rulerDateHeight;
     m_rulerPosX         = m_posX;
     m_rulerPosY         = m_posY + m_channelHeight + m_rulerDateHeight;
-    m_channelsPerPage   = m_gridWidth / m_channelWidth;
-    m_programmesPerPage = (m_gridHeight / m_blockSize) + 1;
+    m_channelsPerPage   = static_cast<int>(m_gridWidth / m_channelWidth);
+    m_programmesPerPage = static_cast<int>(m_gridHeight / m_blockSize) + 1;
 
     m_programmeLayout->SetWidth(m_channelWidth);
     m_focusedProgrammeLayout->SetWidth(m_channelWidth);
