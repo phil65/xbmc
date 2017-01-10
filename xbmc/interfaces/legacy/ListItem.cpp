@@ -345,36 +345,40 @@ namespace XBMCAddon
           const String value(alt.which() == first ? alt.former() : emptyString);
 
           if (key == "dbid")
-            item->GetVideoInfoTag()->m_iDbId = strtol(value.c_str(), NULL, 10);
+            item->GetVideoInfoTag()->m_iDbId = strtol(value.c_str(), nullptr, 10);
           else if (key == "year")
-            item->GetVideoInfoTag()->SetYear(strtol(value.c_str(), NULL, 10));
+            item->GetVideoInfoTag()->SetYear(strtol(value.c_str(), nullptr, 10));
           else if (key == "episode")
-            item->GetVideoInfoTag()->m_iEpisode = strtol(value.c_str(), NULL, 10);
+            item->GetVideoInfoTag()->m_iEpisode = strtol(value.c_str(), nullptr, 10);
+          else if (key == "displayepisode")
+            item->GetVideoInfoTag()->m_iSpecialSortEpisode = strtol(value.c_str(), nullptr, 10);
           else if (key == "season")
-            item->GetVideoInfoTag()->m_iSeason = strtol(value.c_str(), NULL, 10);
+            item->GetVideoInfoTag()->m_iSeason = strtol(value.c_str(), nullptr, 10);
+          else if (key == "displayseason")
+            item->GetVideoInfoTag()->m_iSpecialSortSeason = strtol(value.c_str(), nullptr, 10);
           else if (key == "top250")
-            item->GetVideoInfoTag()->m_iTop250 = strtol(value.c_str(), NULL, 10);
+            item->GetVideoInfoTag()->m_iTop250 = strtol(value.c_str(), nullptr, 10);
           else if (key == "setid")
-            item->GetVideoInfoTag()->m_iSetId = strtol(value.c_str(), NULL, 10);
+            item->GetVideoInfoTag()->m_iSetId = strtol(value.c_str(), nullptr, 10);
           else if (key == "tracknumber")
-            item->GetVideoInfoTag()->m_iTrack = strtol(value.c_str(), NULL, 10);
+            item->GetVideoInfoTag()->m_iTrack = strtol(value.c_str(), nullptr, 10);
           else if (key == "count")
-            item->m_iprogramCount = strtol(value.c_str(), NULL, 10);
+            item->m_iprogramCount = strtol(value.c_str(), nullptr, 10);
           else if (key == "rating")
-            item->GetVideoInfoTag()->SetRating((float)strtod(value.c_str(), NULL));
+            item->GetVideoInfoTag()->SetRating(static_cast<float>(strtod(value.c_str(), nullptr)));
           else if (key == "userrating")
-            item->GetVideoInfoTag()->m_iUserRating = strtol(value.c_str(), NULL, 10);
+            item->GetVideoInfoTag()->m_iUserRating = strtol(value.c_str(), nullptr, 10);
           else if (key == "size")
-            item->m_dwSize = (int64_t)strtoll(value.c_str(), NULL, 10);
+            item->m_dwSize = static_cast<int64_t>(strtoll(value.c_str(), nullptr, 10));
           else if (key == "watched") // backward compat - do we need it?
-            item->GetVideoInfoTag()->SetPlayCount(strtol(value.c_str(), NULL, 10));
+            item->GetVideoInfoTag()->SetPlayCount(strtol(value.c_str(), nullptr, 10));
           else if (key == "playcount")
-            item->GetVideoInfoTag()->SetPlayCount(strtol(value.c_str(), NULL, 10));
+            item->GetVideoInfoTag()->SetPlayCount(strtol(value.c_str(), nullptr, 10));
           else if (key == "overlay")
           {
-            long overlay = strtol(value.c_str(), NULL, 10);
+            long overlay = strtol(value.c_str(), nullptr, 10);
             if (overlay >= 0 && overlay <= 8)
-              item->SetOverlayImage((CGUIListItem::GUIIconOverlay)overlay);
+              item->SetOverlayImage(static_cast<CGUIListItem::GUIIconOverlay>(overlay));
           }
           else if (key == "cast" || key == "castandrole")
           {
@@ -392,7 +396,7 @@ namespace XBMCAddon
               SActorInfo info;
               info.strName = actor;
               if (castEntry.which() == second)
-                info.strRole = (const String&)(castEntry.later().second());
+                info.strRole = static_cast<const String&>(castEntry.later().second());
               item->GetVideoInfoTag()->m_cast.push_back(info);
             }
           }
@@ -413,33 +417,35 @@ namespace XBMCAddon
             }
           }
           else if (key == "genre")
-            item->GetVideoInfoTag()->m_genre = StringUtils::Split(value, g_advancedSettings.m_videoItemSeparator);
+            item->GetVideoInfoTag()->SetGenre(StringUtils::Split(value, g_advancedSettings.m_videoItemSeparator));
           else if (key == "country")
-            item->GetVideoInfoTag()->m_country = StringUtils::Split(value, g_advancedSettings.m_videoItemSeparator);
+            item->GetVideoInfoTag()->SetCountry(StringUtils::Split(value, g_advancedSettings.m_videoItemSeparator));
           else if (key == "director")
-            item->GetVideoInfoTag()->m_director = StringUtils::Split(value, g_advancedSettings.m_videoItemSeparator);
+            item->GetVideoInfoTag()->SetDirector(StringUtils::Split(value, g_advancedSettings.m_videoItemSeparator));
           else if (key == "mpaa")
-            item->GetVideoInfoTag()->m_strMPAARating = value;
+            item->GetVideoInfoTag()->SetMPAARating(value);
           else if (key == "plot")
-            item->GetVideoInfoTag()->m_strPlot = value;
+            item->GetVideoInfoTag()->SetPlot(value);
           else if (key == "plotoutline")
-            item->GetVideoInfoTag()->m_strPlotOutline = value;
+            item->GetVideoInfoTag()->SetPlotOutline(value);
           else if (key == "title")
-            item->GetVideoInfoTag()->m_strTitle = value;
+            item->GetVideoInfoTag()->SetTitle(value);
           else if (key == "originaltitle")
-            item->GetVideoInfoTag()->m_strOriginalTitle = value;
+            item->GetVideoInfoTag()->SetOriginalTitle(value);
           else if (key == "sorttitle")
-            item->GetVideoInfoTag()->m_strSortTitle = value;
+            item->GetVideoInfoTag()->SetSortTitle(value);
           else if (key == "duration")
-            item->GetVideoInfoTag()->SetDuration(strtol(value.c_str(), NULL, 10));
+            item->GetVideoInfoTag()->SetDuration(strtol(value.c_str(), nullptr, 10));
           else if (key == "studio")
-            item->GetVideoInfoTag()->m_studio = StringUtils::Split(value, g_advancedSettings.m_videoItemSeparator);            
+            item->GetVideoInfoTag()->SetStudio(StringUtils::Split(value, g_advancedSettings.m_videoItemSeparator));            
           else if (key == "tagline")
-            item->GetVideoInfoTag()->m_strTagLine = value;
+            item->GetVideoInfoTag()->SetTagLine(value);
           else if (key == "writer")
-            item->GetVideoInfoTag()->m_writingCredits = StringUtils::Split(value, g_advancedSettings.m_videoItemSeparator);
+            item->GetVideoInfoTag()->SetWritingCredits(StringUtils::Split(value, g_advancedSettings.m_videoItemSeparator));
           else if (key == "tvshowtitle")
-            item->GetVideoInfoTag()->m_strShowTitle = value;
+            item->GetVideoInfoTag()->SetShowTitle(value);
+          else if (key == "showlink")
+            item->GetVideoInfoTag()->SetShowLink(StringUtils::Split(value, g_advancedSettings.m_videoItemSeparator));
           else if (key == "premiered")
           {
             CDateTime premiered;
@@ -447,27 +453,31 @@ namespace XBMCAddon
             item->GetVideoInfoTag()->SetPremiered(premiered);
           }
           else if (key == "status")
-            item->GetVideoInfoTag()->m_strStatus = value;
+            item->GetVideoInfoTag()->SetStatus(value);
           else if (key == "set")
-            item->GetVideoInfoTag()->m_strSet = value;
+            item->GetVideoInfoTag()->SetSet(value);
+          else if (key == "setoverview")
+            item->GetVideoInfoTag()->SetSetOverview(value);
           else if (key == "imdbnumber")
             item->GetVideoInfoTag()->SetUniqueID(value);
           else if (key == "code")
-            item->GetVideoInfoTag()->m_strProductionCode = value;
+            item->GetVideoInfoTag()->SetProductionCode(value);
           else if (key == "aired")
             item->GetVideoInfoTag()->m_firstAired.SetFromDateString(value);
           else if (key == "credits")
-            item->GetVideoInfoTag()->m_writingCredits = StringUtils::Split(value, g_advancedSettings.m_videoItemSeparator);
+            item->GetVideoInfoTag()->SetWritingCredits(StringUtils::Split(value, g_advancedSettings.m_videoItemSeparator));
           else if (key == "lastplayed")
             item->GetVideoInfoTag()->m_lastPlayed.SetFromDBDateTime(value);
           else if (key == "album")
-            item->GetVideoInfoTag()->m_strAlbum = value;
+            item->GetVideoInfoTag()->SetAlbum(value);
+          else if (key == "track")
+            item->GetVideoInfoTag()->m_iTrack = StringUtils::ReturnDigits(value);
           else if (key == "votes")
             item->GetVideoInfoTag()->SetVotes(StringUtils::ReturnDigits(value));
           else if (key == "trailer")
-            item->GetVideoInfoTag()->m_strTrailer = value;
+            item->GetVideoInfoTag()->SetTrailer(value);
           else if (key == "path")
-            item->GetVideoInfoTag()->m_strPath = value;
+            item->GetVideoInfoTag()->SetPath(value);
           else if (key == "date")
           {
             if (value.length() == 10)
@@ -514,7 +524,7 @@ namespace XBMCAddon
               CLog::Log(LOGWARNING, "Invalid media type \"%s\"", value.c_str());
           }
         }
-        for (InfoLabelDict::const_iterator it = infoLabels.begin(); it != infoLabels.end(); ++it)
+        for (auto it = infoLabels.begin(); it != infoLabels.end(); ++it)
         {
           String key = it->first;
           StringUtils::ToLower(key);
