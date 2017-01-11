@@ -169,6 +169,14 @@ namespace XBMCAddon
       item->GetVideoInfoTag()->SetRating(rating, votes, type, defaultt);
     }
 
+    void ListItem::AddSeason(int number, std::string name /* = "" */)
+    {
+      if (!item) return;
+
+      LOCKGUI;
+      item->GetVideoInfoTag()->m_namedSeasons[number] = name;
+    }
+
     void ListItem::select(bool selected)
     {
       if (!item) return;
